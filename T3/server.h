@@ -1,6 +1,3 @@
-//
-// Created by Chilled on 18/11/2025.
-//
 
 #ifndef SERVER_H
 #define SERVER_H
