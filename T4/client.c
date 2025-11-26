@@ -14,19 +14,31 @@ int *askForBoardDimensions() {
 void showBoard(struct GameState *GS) { printf("Printing the board state\n"); }
 
 struct Move askPlayerForMove(int player) {
-  int userInput;
-  struct Move userMove;
-  userMove.toX = 0;
-  userMove.fromX = 1;
-  while (1) {
-    printf("Asking player %d for move: ", player);
-    if (scanf("%d", &userInput) == 1) {
-      break; // valid integer entered
-    } else {
-      printf("Invalid input, try again.\n");
-      while (getchar() != '\n')
-        ; // clear invalid input
+    struct Move userMove;
+    int valid = 0;
+
+    while (!valid) {
+        printf("\nPlayer %d, enter your move.\n", player);
+
+        printf(" Enter FROM coordinates (row col): ");
+        if (scanf("%d %d", &userMove.fromX, &userMove.fromY) != 2) {
+            printf(" Invalid input. Please enter two integers.\n");
+            while (getchar() != '\n'); // clear buffer
+            continue;
+        }
+
+        printf(" Enter TO coordinates (row col): ");
+        if (scanf("%d %d", &userMove.toX, &userMove.toY) != 2) {
+            printf(" Invalid input. Please enter two integers.\n");
+            while (getchar() != '\n');
+            continue;
+        }
+
+        valid = 1; // all good!
     }
-  }
-  return userMove;
+
+    printf("You chose: FROM (%d,%d) → TO (%d,%d)\n",
+           userMove.fromX, userMove.fromY, userMove.toX, userMove.toY);
+
+    return move;
 }
