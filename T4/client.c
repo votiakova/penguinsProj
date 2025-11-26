@@ -11,7 +11,27 @@ int *askForBoardDimensions() {
   return 0;
 }
 
-void showBoard(struct GameState *GS) { printf("Printing the board state\n"); }
+void showBoard(struct GameState *GS) {
+    int rows = GS->height;
+    int cols = GS->width;
+
+    printf("\n"); 
+    
+    for (int i = 0; i < rows; i++) {
+        
+        printf("%2d ", i + 1);
+
+        for (int j = 0; j < cols; j++) { 
+            printf("   "); 
+        }
+        printf("\n");
+    }
+    printf("   "); 
+    for (int j = 0; j < cols; j++) {
+        printf("%3d", j + 1);
+    }
+    printf("\n");
+}
 
 struct Move askPlayerForMove(int player) {
     struct Move userMove;
