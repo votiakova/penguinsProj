@@ -21,8 +21,10 @@ struct GameState {
 };
 
 struct Move {
-  int to;
-  int from;
+  int toX;
+  int toY;
+  int fromX;
+  int fromY;
 };
 
 /**
@@ -48,6 +50,15 @@ int calculateWinner();
  * @param move A move struct (to be implemented)
  */
 int isMoveValid(struct GameState *GS, struct Move *move);
+
+/**
+ *  3 |
+ *  2 |
+ *  1 |1
+ *     -----
+ *     1 2 3
+ *
+ */
 
 /**
  * Makes the move on the board

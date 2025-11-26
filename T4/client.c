@@ -11,13 +11,13 @@ int *askForBoardDimensions() {
   return 0;
 }
 
-void showBoard() { printf("Printing the board state\n"); }
+void showBoard(struct GameState *GS) { printf("Printing the board state\n"); }
 
 struct Move askPlayerForMove(int player) {
   int userInput;
   struct Move userMove;
-  userMove.to = 0;
-  userMove.from = 1;
+  userMove.toX = 0;
+  userMove.fromX = 1;
   while (1) {
     printf("Asking player %d for move: ", player);
     if (scanf("%d", &userInput) == 1) {

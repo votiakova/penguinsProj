@@ -1,3 +1,4 @@
+#include "server.h"
 
 #ifndef CLIENT_H
 #define CLIENT_H
@@ -11,7 +12,7 @@ int *askForBoardDimensions();
 /*
  * Displays the board to the user
  */
-void showBoard();
+void showBoard(struct GameState *GS);
 
 /*
  * Asks the user to input a move, and returns a move Struct (To be implemented)
