@@ -11,26 +11,44 @@ int *askForBoardDimensions() {
   return 0;
 }
 
-void showBoard(struct GameState *GS) {
-    int rows = GS->height;
-    int cols = GS->width;
+#include <stdio.h>
+#include "server.h"
 
-    printf("\n"); 
-    
+void showBoard(struct GameState *GS) {
+
+    int rows = GS->boardDimensions->height;
+    int cols = GS->boardDimensions->width;
+
+    printf("\n");
+
     for (int i = 0; i < rows; i++) {
         
         printf("%2d ", i + 1);
 
-        for (int j = 0; j < cols; j++) { 
-            printf("   "); 
+        for (int j = 0; j < cols; j++) {
+
+            int val = (int)(long)GS->board[i][j];
+
+            int fish = val / 10;
+            int player = val % 10;
+
+            if (val == 0) {
+                printf(" ~~"); 
+            } 
+            else if (player > 0) {
+                printf(" P%d", player);
+            } 
+            else {
+                printf(" %d ", fish);
+            }
         }
         printf("\n");
     }
+
     printf("   "); 
     for (int j = 0; j < cols; j++) {
         printf("%3d", j + 1);
     }
-    printf("\n");
 }
 
 struct Move askPlayerForMove(int player) {
