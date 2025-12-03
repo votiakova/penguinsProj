@@ -4,7 +4,6 @@
 struct Players;
 struct BoardDimensions;
 
-void movementPhase(struct Players *players,
-                   struct BoardDimensions *boardDimensions);
+void movementPhase(struct GameState *GS);
 
 #endif

@@ -14,17 +14,20 @@ int main() {
   struct Players players;
   players.current = 0;
   players.next = 1;
+  players.player0Icon = 'x';
+  players.player1Icon = 'o';
+  players.player0Score = 0;
+  players.player1Score = 0;
   GS.players = &players;
 
-  askForBoardDimensions();
-  struct BoardDimensions boardDimensions;
-  boardDimensions.width = 8;
-  boardDimensions.height = 8;
+  struct BoardDimensions boardDimensions = askForBoardDimensions();
   GS.boardDimensions = &boardDimensions;
-  // currently not implemented
+  GS.board = createBoard(&GS);
+
   srand(random_seed);
+  populateBoard(&GS);
   placementPhase(&GS);
-  movementPhase(&players, &boardDimensions);
+  movementPhase(&GS);
 
   return 0;
   // currently not implemented

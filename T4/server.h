@@ -7,6 +7,8 @@ struct Players {
   int next;
   int player0Score;
   int player1Score;
+  char player0Icon;
+  char player1Icon;
 };
 
 struct BoardDimensions {
@@ -17,15 +19,22 @@ struct BoardDimensions {
 struct GameState {
   struct Players *players;
   struct BoardDimensions *boardDimensions;
-  int *board[64];
+  char **board;
+};
+
+struct Coordinate {
+  int X;
+  int Y;
 };
 
 struct Move {
-  int toX;
-  int toY;
-  int fromX;
-  int fromY;
+  struct Coordinate to;
+  struct Coordinate from;
 };
+
+char **createBoard(struct GameState *GS);
+
+void populateBoard(struct GameState *GS);
 
 /**
  * Swaps the variables for the current player and the next player
@@ -66,11 +75,5 @@ int isMoveValid(struct GameState *GS, struct Move *move);
  * @param move the move struct (int for now)
  */
 void movePenguin(struct GameState *GS, struct Move *move);
-
-/**
- * Checks if every penguin was placed
- *
- */
-int wereAllPenguinsPlaced(struct GameState *GS);
 
 #endif // SERVER_H

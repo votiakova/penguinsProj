@@ -7,7 +7,7 @@
  * Asks the user for the board dimensions, and returns them as an array of ints
  */
 
-int *askForBoardDimensions();
+struct BoardDimensions askForBoardDimensions();
 
 /*
  * Displays the board to the user
@@ -19,4 +19,6 @@ void showBoard(struct GameState *GS);
  * @param player, the number of the player (either 0 or 1)
  */
 struct Move askPlayerForMove(int player);
+
+struct Coordinate askPlayerForCoordinate(int player);
 #endif // CLIENT_H
