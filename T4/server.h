@@ -32,13 +32,17 @@ struct Move {
   struct Coordinate from;
 };
 
+/**
+ * Creaates the NxM board based on the date in the GameState struct
+ * @param GS A pointer to the GameState struct
+ */
 char **createBoard(struct GameState *GS);
 
 void populateBoard(struct GameState *GS);
 
 /**
  * Swaps the variables for the current player and the next player
- * @param players A pointer to the players struct
+ * @param GS A pointer to the GameState struct
  */
 void swapPlayers(struct GameState *GS);
 
@@ -56,23 +60,15 @@ int calculateWinner();
 
 /**
  * Checks if a move is valid
- * @param move A move struct (to be implemented)
+ * @param GS a pointer to the GameState struct
+ * @param move A pointer to ther move struct
  */
 int isMoveValid(struct GameState *GS, struct Move *move);
 
 /**
- *  3 |
- *  2 |
- *  1 |1
- *     -----
- *     1 2 3
- *
- */
-
-/**
  * Makes the move on the board
- * @param player the id of the current player
- * @param move the move struct (int for now)
+ * @param GS the pointer the the GameState struct
+ * @param move A pointer to the move struct
  */
 void movePenguin(struct GameState *GS, struct Move *move);
 

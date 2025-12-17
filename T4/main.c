@@ -14,8 +14,8 @@ int main() {
   struct Players players;
   players.current = 0;
   players.next = 1;
-  players.player0Icon = 'x';
-  players.player1Icon = 'o';
+  players.player0Icon = '#';
+  players.player1Icon = '@';
   players.player0Score = 0;
   players.player1Score = 0;
   GS.players = &players;

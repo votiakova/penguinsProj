@@ -4,7 +4,11 @@
 #include <stdlib.h>
 
 void placementPhase(struct GameState *GS) {
-  int amountOfPenguinsToPlace = 3 * 2; // *2 because we have two players
+  int penguinUserInput;
+  printf("How many penguins per player?:\n");
+  scanf("%d", &penguinUserInput);
+  int amountOfPenguinsToPlace =
+      penguinUserInput * 2; // *2 because we have two players
   while (amountOfPenguinsToPlace > 0) {
     showBoard(GS);
     struct Coordinate coordinate;

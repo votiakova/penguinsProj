@@ -14,11 +14,10 @@ struct BoardDimensions askForBoardDimensions() {
   return boardDimensions;
 }
 
-<<<<<<< HEAD
 void showBoard(struct GameState *GS) {
   int width = GS->boardDimensions->width;
   int height = GS->boardDimensions->height;
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 100; i++) {
     printf("\n");
   }
 
@@ -104,74 +103,3 @@ struct Coordinate askPlayerForCoordinate(int player) {
   }
   return userCoordinate;
 }
-=======
-#include <stdio.h>
-#include "server.h"
-
-void showBoard(struct GameState *GS) {
-
-    int rows = GS->boardDimensions->height;
-    int cols = GS->boardDimensions->width;
-
-    printf("\n");
-
-    for (int i = 0; i < rows; i++) {
-        
-        printf("%2d ", i + 1);
-
-        for (int j = 0; j < cols; j++) {
-
-            int val = (int)(long)GS->board[i][j];
-
-            int fish = val / 10;
-            int player = val % 10;
-
-            if (val == 0) {
-                printf(" ~~"); 
-            } 
-            else if (player > 0) {
-                printf(" P%d", player);
-            } 
-            else {
-                printf(" %d ", fish);
-            }
-        }
-        printf("\n");
-    }
-
-    printf("   "); 
-    for (int j = 0; j < cols; j++) {
-        printf("%3d", j + 1);
-    }
-}
-
-struct Move askPlayerForMove(int player) {
-    struct Move userMove;
-    int valid = 0;
-
-    while (!valid) {
-        printf("\nPlayer %d, enter your move.\n", player);
-
-        printf(" Enter FROM coordinates (row col): ");
-        if (scanf("%d %d", &userMove.fromX, &userMove.fromY) != 2) {
-            printf(" Invalid input. Please enter two integers.\n");
-            while (getchar() != '\n'); // clear buffer
-            continue;
-        }
-
-        printf(" Enter TO coordinates (row col): ");
-        if (scanf("%d %d", &userMove.toX, &userMove.toY) != 2) {
-            printf(" Invalid input. Please enter two integers.\n");
-            while (getchar() != '\n');
-            continue;
-        }
-
-        valid = 1; // all good!
-    }
-
-    printf("You chose: FROM (%d,%d) → TO (%d,%d)\n",
-           userMove.fromX, userMove.fromY, userMove.toX, userMove.toY);
-
-    return move;
-}
->>>>>>> 3ab2634223c0fe7ca97f30e0e0d9f3197cca9b10

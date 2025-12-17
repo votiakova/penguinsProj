@@ -4,6 +4,9 @@
 struct Players;
 struct BoardDimensions;
 
+/**
+ * The movement phase
+ */
 void movementPhase(struct GameState *GS);
 
 #endif
