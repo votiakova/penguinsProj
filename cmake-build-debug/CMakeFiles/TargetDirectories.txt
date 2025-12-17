@@ -1,0 +1,3 @@
+D:/Programming/Studies/epfu25w-101-f-penguins/cmake-build-debug/CMakeFiles/epfu25w_101_f_penguins.dir
+D:/Programming/Studies/epfu25w-101-f-penguins/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Programming/Studies/epfu25w-101-f-penguins/cmake-build-debug/CMakeFiles/rebuild_cache.dir
