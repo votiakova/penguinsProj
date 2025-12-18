@@ -1,6 +1,6 @@
-#include "gameconfig.h"
 #include "fileio.h"
 #include "game.h"
+#include "gameconfig.h"
 #include <stdio.h>
 
 void print_config(const GameConfig *cfg) {
@@ -42,10 +42,10 @@ int main(int argc, char *argv[]) {
   parse_args(argc, argv, &gameConfig);
 
   // COMMENT OUT TO AVOID CONSOLE OUTPUT
-  // print_config(&gameConfig);
+  print_config(&gameConfig);
 
   if (gameConfig.show_name) {
-    printf("very_original_team_name\n");
+    printf("very_original_team_name");
     return 0;
   }
 
@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
     return 3;
   }
 
-  if (create_file("output.txt", &gameState) != 0) {
+  if (create_file(gameConfig.output_file, &gameState) != 0) {
     printf("Failed to write output file\n");
     return 3;
   }
