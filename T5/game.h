@@ -1,6 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "gameconfig.h"
+
+#define TEAM_NAME "Penguings27"
+
 /**
  * Struct to hold all player data
  */
@@ -32,23 +36,29 @@ typedef struct {
   struct BoardDimensions *boardDimensions;
   char **fishBoard;
   char **penguinBoard;
+    int teamNameAdded;
 } GameState;
 
 /**
  * Struct to hold a pair of values representing coordinates
  * Currently unused
  */
-struct Coordinate {
+typedef struct {
   int X;
   int Y;
-};
+} Coordinate;
 
 /**
  * Struct to hold a pair of coordinates representing a move
  */
-struct Move {
-  struct Coordinate to;
-  struct Coordinate from;
-};
+typedef struct {
+  Coordinate to;
+  Coordinate from;
+} Move;
+
+void print2DIntArray(int rows, int cols, int array[rows][cols]);
+
+int placementPhase(GameConfig *cfg, GameState *GS);
+int movementPhase(GameConfig *cfg, GameState *GS);
 
 #endif // !GAME_H

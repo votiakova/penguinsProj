@@ -147,8 +147,8 @@ int parse_file(char *file_buffer[FILE_BUFF_SIZE], int lines_read,
   if (player_lines <= 0) {
     // You are the 1st player. In this case we are going to add our name to the
     // list For now we will throw an error
-    printf("Error: no player data found\n");
-    return -1;
+    // add to the file TEAMNAME 0 0
+    GS->teamNameAdded = 0;
   }
 
   GS->players = malloc(sizeof(struct Players));
@@ -291,6 +291,20 @@ int create_file(const char *file_name, GameState *GS) {
       return -1;
     }
   }
+
+  if (GS->teamNameAdded == 0) {
+    const char *name = TEAM_NAME;
+    int team_id = GS->players->amountOfPlayers; // next available id
+    int score = GS->players->playerScores[team_id];
+
+    if (fprintf(fp, "%s %d %d\n", name, team_id, score) < 0) {
+      perror("Error writing team name data");
+      fclose(fp);
+      return -1;
+    }
+  }
+
+
 
   fclose(fp);
   return 0;

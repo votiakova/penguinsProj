@@ -12,4 +12,8 @@ add_executable(epfu25w_101_f_penguins
     T5/game.h
     T5/gameconfig.c
     T5/gameconfig.h
-    T5/main.c)
+    T5/main.c
+        T5/placementalgorithm.c
+        T5/placementalgorithm.h
+        T5/movementalgorithm.c
+        T5/movementalgorithm.h)

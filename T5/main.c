@@ -1,7 +1,7 @@
 #include "fileio.h"
 #include "game.h"
 #include "gameconfig.h"
-#include "visualmode.h"
+#include "placementalgorithm.h"
 #include <stdio.h>
 
 void print_config(const GameConfig *cfg) {
@@ -46,12 +46,8 @@ int main(int argc, char *argv[]) {
   print_config(&gameConfig);
 
   if (gameConfig.show_name) {
-    printf("very_original_team_name");
+    printf(TEAM_NAME);
     return 0;
-  }
-
-  if (gameConfig.visual_mode) {
-    visual_mode(&gameState, &gameConfig);
   }
 
   char *fb[512];
@@ -67,6 +63,23 @@ int main(int argc, char *argv[]) {
     return 3;
   }
 
+  // check which phase we are in and call the appropriate function
+  if (gameConfig.phase == PHASE_PLACEMENT) {
+    if (placementPhase(&gameConfig, &gameState) != 0) {
+      printf("Placement phase failed\n");
+      return 3;
+    }
+  } if (gameConfig.phase == PHASE_MOVEMENT) {
+    if (movementPhase(&gameConfig, &gameState) != 0) {
+      printf("Movement phase failed\n");
+      return 3;
+    }
+  } else {
+    printf("Unsupported phase or no phase specified\n");
+    return 3;
+  }
+
+  // write the output file
   if (create_file(gameConfig.output_file, &gameState) != 0) {
     printf("Failed to write output file\n");
     return 3;
