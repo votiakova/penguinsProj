@@ -1,6 +1,7 @@
 #include "fileio.h"
 #include "game.h"
 #include "gameconfig.h"
+#include "visualmode.h"
 #include <stdio.h>
 
 void print_config(const GameConfig *cfg) {
@@ -47,6 +48,10 @@ int main(int argc, char *argv[]) {
   if (gameConfig.show_name) {
     printf("very_original_team_name");
     return 0;
+  }
+
+  if (gameConfig.visual_mode) {
+    visual_mode(&gameState, &gameConfig);
   }
 
   char *fb[512];

@@ -7,11 +7,13 @@
 struct Players {
   int amountOfPlayers;
   /**
-   * Holds the list index of the current player 0 <= currentPlayer < amountOfPlayers
+   * Holds the list index of the current player 0 <= currentPlayer <
+   * amountOfPlayers
    */
   int currentPlayer;
   int *playerScores;
   char **playerNames;
+  int *playerIds;
 };
 
 /**

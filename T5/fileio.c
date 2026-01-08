@@ -1,13 +1,22 @@
 #include "fileio.h"
 #include "game.h"
+#include <ctype.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+int is_line_empty(const char *line) {
+  while (*line) {
+    if (!isspace((unsigned char)*line)) {
+      return 0; // not empty
+    }
+    line++;
+  }
+  return 1; // empty or whitespace-only
+}
 int read_file(const char *file_name, char *file_buffer[FILE_BUFF_SIZE]) {
-
   FILE *fp = fopen(file_name, "r");
   if (fp == NULL) {
     printf("The file %s doesn't exist\n", file_name);
@@ -124,7 +133,16 @@ int parse_file(char *file_buffer[FILE_BUFF_SIZE], int lines_read,
 
   // Parse players
   int first_player_line = (int)m + 1;
-  int player_lines = lines_read - first_player_line;
+  int potential_player_lines = lines_read - first_player_line;
+  int player_lines = 0;
+  for (int i = 0; i < potential_player_lines; i++) {
+
+    line = file_buffer[first_player_line + i];
+    if (is_line_empty(line)) {
+      continue;
+    }
+    player_lines++;
+  }
 
   if (player_lines <= 0) {
     // You are the 1st player. In this case we are going to add our name to the
@@ -143,19 +161,26 @@ int parse_file(char *file_buffer[FILE_BUFF_SIZE], int lines_read,
   GS->players->currentPlayer = 0;
   GS->players->playerScores = malloc(player_lines * sizeof(int));
   GS->players->playerNames = malloc(player_lines * sizeof(char *));
-  if (!GS->players->playerScores || !GS->players->playerNames) {
+  GS->players->playerIds = malloc(player_lines * sizeof(int));
+
+  if (!GS->players->playerScores || !GS->players->playerNames ||
+      !GS->players->playerNames) {
     printf("Error: malloc failed for player arrays\n");
     return -1;
   }
 
-  for (int i = 0; i < player_lines; i++) {
+  for (int i = 0, data_index = 0; i < potential_player_lines;
+       i++, data_index++) {
     line = file_buffer[first_player_line + i];
     char *p = line;
     char name[256];
 
+    if (is_line_empty(line)) {
+      data_index--; // we decrement the data index so that it gets stored in the
+                    // correct place in the struct
+      continue;
+    }
     // Parse team name
-    while (*p == ' ')
-      p++;
     int name_len = 0;
     while (*p != ' ' && *p != '\0' && name_len < 255) {
       name[name_len++] = *p++;
@@ -167,7 +192,7 @@ int parse_file(char *file_buffer[FILE_BUFF_SIZE], int lines_read,
       return -1;
     }
 
-    // Parse team ID (ignored)
+    // Parse team ID
     while (*p == ' ')
       p++;
     errno = 0;
@@ -200,13 +225,14 @@ int parse_file(char *file_buffer[FILE_BUFF_SIZE], int lines_read,
     }
 
     // Store player
-    GS->players->playerScores[i] = (int)score;
-    GS->players->playerNames[i] = malloc(strlen(name) + 1);
-    if (!GS->players->playerNames[i]) {
+    GS->players->playerScores[data_index] = (int)score;
+    GS->players->playerNames[data_index] = malloc(strlen(name) + 1);
+    GS->players->playerIds[data_index] = (int)id;
+    if (!GS->players->playerNames[data_index]) {
       printf("Error: malloc failed for player name\n");
       return -1;
     }
-    strcpy(GS->players->playerNames[i], name);
+    strcpy(GS->players->playerNames[data_index], name);
   }
 
   return 0;
@@ -256,7 +282,7 @@ int create_file(const char *file_name, GameState *GS) {
   // Write player data
   for (int i = 0; i < GS->players->amountOfPlayers; i++) {
     const char *name = GS->players->playerNames[i];
-    int team_id = i + 1; // Use list index as team ID
+    int team_id = GS->players->playerIds[i];
     int score = GS->players->playerScores[i];
 
     if (fprintf(fp, "%s %d %d\n", name, team_id, score) < 0) {
