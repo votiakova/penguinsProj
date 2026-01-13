@@ -3,7 +3,7 @@
 
 #include "gameconfig.h"
 
-#define TEAM_NAME "Penguings27"
+#define TEAM_NAME "SAU"
 
 /**
  * Struct to hold all player data
@@ -36,7 +36,7 @@ typedef struct {
   struct BoardDimensions *boardDimensions;
   char **fishBoard;
   char **penguinBoard;
-    int teamNameAdded;
+  int teamNameAdded;
 } GameState;
 
 /**
