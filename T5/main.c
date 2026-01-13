@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
   parse_args(argc, argv, &gameConfig);
 
   // COMMENT OUT TO AVOID CONSOLE OUTPUT
-  print_config(&gameConfig);
+  // print_config(&gameConfig);
 
   if (gameConfig.show_name) {
     printf(TEAM_NAME);
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
       printf("Placement phase failed\n");
       return 3;
     }
-  } if (gameConfig.phase == PHASE_MOVEMENT) {
+  } else if (gameConfig.phase == PHASE_MOVEMENT) {
     if (movementPhase(&gameConfig, &gameState) != 0) {
       printf("Movement phase failed\n");
       return 3;
