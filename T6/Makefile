@@ -1,10 +1,10 @@
 cc=gcc
 all: build
 build:
-	gcc fileio.c game.c gameconfig.c  main.c movementalgorithm.c placementalgorithm.c -lm -o penguing.out 
+	gcc fileio.c game.c gameconfig.c  main.c movementalgorithm.c placementalgorithm.c -o sau.out -lm
 runplacement:
-	./penguing.out phase=placement penguins=3 input.txt output.txt
+	./sau.out phase=placement penguins=3 input.txt output.txt
 runmovement:
-	./penguing.out phase=movement input.txt output.txt
+	./sau.out phase=movement input.txt output.txt
 clean:
-	rm -f "penguing.out"
+	rm -f "sau.out"
