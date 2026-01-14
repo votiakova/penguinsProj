@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
-  char *fb[512];
+  char *fb[FILE_BUFF_SIZE];
   int lines_read;
   lines_read = read_file(gameConfig.input_file, fb);
   if (lines_read > 0) {

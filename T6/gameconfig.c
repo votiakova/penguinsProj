@@ -25,9 +25,6 @@ int parse_args(int argc, char *argv[], GameConfig *cfg) {
       cfg->show_name = 1;
       return 0;
     }
-    if (strcmp(argv[i], "vis") == 0) {
-      cfg->visual_mode = 1;
-    }
     if (starts_with(argv[i], "phase=")) {
       const char *value =
           argv[i] +
@@ -39,7 +36,9 @@ int parse_args(int argc, char *argv[], GameConfig *cfg) {
       else
         return -1; // means the program would return an error
     } else if (starts_with(argv[i], "penguins=")) {
-      cfg->penguins = atoi(argv[i] + 9); // moves pointer forward by 9 spots
+      cfg->penguins =
+          atoi(argv[i] +
+               9); // moves pointer forward by 9 spots and converts it to an int
     } else {
       // positional arguments (files)
       if (!cfg->input_file)

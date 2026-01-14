@@ -22,7 +22,7 @@ int read_file(const char *file_name, char *file_buffer[FILE_BUFF_SIZE]) {
     printf("The file %s doesn't exist\n", file_name);
     return -1;
   }
-
+  // Allocating the memmory
   for (int i = 0; i < FILE_BUFF_SIZE; i++) {
     file_buffer[i] = malloc(512 * sizeof(char));
     if (file_buffer[i] == NULL) {
@@ -31,6 +31,8 @@ int read_file(const char *file_name, char *file_buffer[FILE_BUFF_SIZE]) {
       return -1;
     }
   }
+  // File buffer is a list of strings for each line of the file
+  // Putting the file in the file buffer
   int i = 0;
   while (i < FILE_BUFF_SIZE && fgets(file_buffer[i], 512, fp) != NULL) {
     file_buffer[i][strcspn(file_buffer[i], "\n")] = '\0'; // Remove newline
@@ -303,8 +305,6 @@ int create_file(const char *file_name, GameState *GS) {
       return -1;
     }
   }
-
-
 
   fclose(fp);
   return 0;
