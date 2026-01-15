@@ -222,8 +222,8 @@ int parse_file(char *file_buffer[FILE_BUFF_SIZE], int lines_read,
     while (*p == ' ')
       p++;
     if (*p != '\0') {
-      printf("Error: trailing data on line %d\n", first_player_line + i + 1);
-      return -1;
+      // printf("Error: trailing data on line %d\n", first_player_line + i + 1);
+      // return -1;
     }
 
     // Store player

@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
   // check which phase we are in and call the appropriate function
   if (gameConfig.phase == PHASE_PLACEMENT) {
     placement = placementPhase(&gameConfig, &gameState);
-    if ((placement != 0) || (placement != 1)) {
+    if (!((placement == 0) || (placement == 1))) {
       printf("Placement phase failed\n");
       return 3;
     }
