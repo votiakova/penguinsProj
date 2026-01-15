@@ -62,10 +62,11 @@ int main(int argc, char *argv[]) {
     printf("Failed to read input file\n");
     return 3;
   }
-
+  int placement = -1;
   // check which phase we are in and call the appropriate function
   if (gameConfig.phase == PHASE_PLACEMENT) {
-    if (placementPhase(&gameConfig, &gameState) != 0) {
+    placement = placementPhase(&gameConfig, &gameState);
+    if ((placement != 0) || (placement != 1)) {
       printf("Placement phase failed\n");
       return 3;
     }
@@ -83,6 +84,9 @@ int main(int argc, char *argv[]) {
   if (create_file(gameConfig.output_file, &gameState) != 0) {
     printf("Failed to write output file\n");
     return 3;
+  }
+  if (placement == 1) {
+    return 1;
   }
   return 0;
 }

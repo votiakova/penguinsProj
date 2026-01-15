@@ -54,7 +54,7 @@ int placementPhase(GameConfig *cfg, GameState *GS) {
   }
   if (penguinsToPlace <= 0) {
     // we have already placed all our penguins
-    return 0;
+    return 1;
   }
   // now we place one of our penguins in the best possible spot
   Coordinate bestPlacement = determineBestPlacement(GS);
